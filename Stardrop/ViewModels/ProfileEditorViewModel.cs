@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Diagnostics;
 
 namespace Stardrop.ViewModels
 {
@@ -109,6 +110,43 @@ namespace Stardrop.ViewModels
 
             Profiles[profileIndex].EnabledModIds = enabledModIds;
             CreateProfile(profile, true);
+        }
+
+        //make this sync
+        private void OpenNativeExplorer(string folderPath)
+        {
+            try
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Process.Start("explorer", folderPath.Replace("&", "^&"));
+                    Console.WriteLine("os is windows");
+                }
+                else
+                {
+                    var processInfo = new ProcessStartInfo
+                    {
+                        FileName = folderPath,
+                        CreateNoWindow = false,
+                        UseShellExecute = true
+                    };
+                    Console.WriteLine("os is not windows");
+                    var process = Process.Start(processInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                //Program.helper.Log($"Unable to open the folder path ({folderPath}) due to the following exception: {ex}", Helper.Status.Alert);
+            }
+        }
+
+        internal void selectNewProfile()
+        {
+            //make this sync
+            OpenNativeExplorer(_profileFilePath);
+
+            //process the entry
         }
     }
 }

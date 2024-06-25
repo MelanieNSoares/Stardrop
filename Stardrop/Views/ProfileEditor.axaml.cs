@@ -1,10 +1,17 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Dialogs;
 using Stardrop.Models;
 using Stardrop.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Stardrop.Views
 {
@@ -44,6 +51,8 @@ namespace Stardrop.Views
             this.FindControl<Button>("deleteButton").Click += DeleteButton_Click;
             this.FindControl<Button>("renameButton").Click += RenameButton_Click;
             this.FindControl<Button>("copyButton").Click += CopyButton_Click;
+            this.FindControl<Button>("importButton").Click += ImportButton_Click;
+
         }
 
         private void ProfileListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -123,6 +132,47 @@ namespace Stardrop.Views
 
             _viewModel.OldProfiles = currentProfileList.ToList();
             this.Close();
+        }
+
+        private void ImportButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            // _viewModel.selectNewProfile();
+            OpenFileDialog dialog = new OpenFileDialog();
+            FileDialogFilter filter = new FileDialogFilter();
+            filter.Extensions.Add("json");
+            dialog.Filters = new List<FileDialogFilter> { filter };
+            string[] profile = dialog.ShowAsync(this).Result;
+            Console.WriteLine(profile[0]);
+        }
+
+        private void OpenNativeExplorer(string folderPath)
+        {
+   ;
+
+            try
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    Process.Start("explorer", folderPath.Replace("&", "^&"));
+                    Console.WriteLine("os is windows");
+                }
+                else
+                {
+                    var processInfo = new ProcessStartInfo
+                    {
+                        FileName = folderPath,
+                        CreateNoWindow = false,
+                        UseShellExecute = true
+                    };
+                    Console.WriteLine("os is not windows");
+                    var process = Process.Start(processInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                //Program.helper.Log($"Unable to open the folder path ({folderPath}) due to the following exception: {ex}", Helper.Status.Alert);
+            }
         }
 
         private void MainBar_DoubleTapped(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

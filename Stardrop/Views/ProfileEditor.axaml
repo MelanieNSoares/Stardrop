@@ -84,6 +84,7 @@
 			<Button Name="deleteButton" IsEnabled="False" Margin="0 15 0 15" i:Attached.Icon="mdi-minus" BorderBrush="{DynamicResource HighlightBrush}" Foreground="{DynamicResource ThemeForegroundBrush}" Background="Transparent"/>
 			<Button Name="renameButton" IsEnabled="False" Margin="0 15 0 15" i:Attached.Icon="mdi-pencil" BorderBrush="{DynamicResource HighlightBrush}" Foreground="{DynamicResource ThemeForegroundBrush}" Background="Transparent"/>
 			<Button Name="copyButton" Margin="0 15 0 15" i:Attached.Icon="mdi-content-copy" BorderBrush="{DynamicResource HighlightBrush}" Foreground="{DynamicResource ThemeForegroundBrush}" Background="Transparent"/>
+			<Button Name="importButton" Margin="0 15 0 15" i:Attached.Icon="mdi-file-import" BorderBrush="{DynamicResource HighlightBrush}" Foreground="{DynamicResource ThemeForegroundBrush}" Background="Transparent"/>
 		</StackPanel>
 
 		<DockPanel Grid.Row="2" Grid.Column="1" Margin="0 0 0 10">

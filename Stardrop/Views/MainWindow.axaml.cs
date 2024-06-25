@@ -2572,6 +2572,7 @@ namespace Stardrop.Views
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Process.Start("explorer", folderPath.Replace("&", "^&"));
+                    Console.WriteLine("os is windows");
                 }
                 else
                 {
@@ -2581,7 +2582,7 @@ namespace Stardrop.Views
                         CreateNoWindow = false,
                         UseShellExecute = true
                     };
-
+                    Console.WriteLine("os is not windows");
                     var process = Process.Start(processInfo);
                 }
             }
