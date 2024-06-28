@@ -150,6 +150,13 @@ namespace Stardrop.Views
                 _nxmSentinel.Start();
             }
 
+            //melanie
+            foreach (Mod mods in _viewModel.Mods)
+            {
+                Console.WriteLine(mods.Name.ToString());
+                Console.WriteLine(mods.IsHidden.ToString());
+            }
+
             // Start sentinel for watching for lock state
             _lockSentinel = new DispatcherTimer();
             _lockSentinel.Interval = new TimeSpan(TimeSpan.TicksPerMillisecond * 100);

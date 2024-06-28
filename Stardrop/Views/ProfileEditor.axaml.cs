@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Text.Json;
 
 namespace Stardrop.Views
 {
@@ -143,6 +145,11 @@ namespace Stardrop.Views
             dialog.Filters = new List<FileDialogFilter> { filter };
             string[] profile = dialog.ShowAsync(this).Result;
             Console.WriteLine(profile[0]);
+
+            FileInfo fileInfo = new FileInfo(profile[0]);
+
+            var profile1 = JsonSerializer.Deserialize<Profile>(File.ReadAllText(fileInfo.FullName), new JsonSerializerOptions { AllowTrailingCommas = true });
+            _viewModel.Profiles.Add(profile1);
         }
 
         private void OpenNativeExplorer(string folderPath)

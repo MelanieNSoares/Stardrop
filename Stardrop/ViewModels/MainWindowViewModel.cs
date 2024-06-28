@@ -283,7 +283,7 @@ namespace Stardrop.ViewModels
                 {
                     continue;
                 }
-
+                Console.WriteLine(fileInfo.Name);
                 try
                 {
                     var manifest = ManifestParser.GetData(File.ReadAllText(fileInfo.FullName));
@@ -623,10 +623,17 @@ namespace Stardrop.ViewModels
             foreach (var mod in Mods)
             {
                 mod.IsEnabled = false;
+                Console.WriteLine(profile.EnabledModIds.
                 if (profile.EnabledModIds.Any(id => id.Equals(mod.UniqueId, StringComparison.OrdinalIgnoreCase)))
                 {
                     mod.IsEnabled = true;
                 }
+
+                foreach(string id in profile.EnabledModIds)
+                {
+                   
+                }
+                
             }
             HideRequiredMods();
 
