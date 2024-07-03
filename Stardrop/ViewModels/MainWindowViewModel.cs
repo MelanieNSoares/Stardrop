@@ -623,7 +623,7 @@ namespace Stardrop.ViewModels
             foreach (var mod in Mods)
             {
                 mod.IsEnabled = false;
-                Console.WriteLine(profile.EnabledModIds.
+                Console.WriteLine(profile.EnabledModIds);
                 if (profile.EnabledModIds.Any(id => id.Equals(mod.UniqueId, StringComparison.OrdinalIgnoreCase)))
                 {
                     mod.IsEnabled = true;

@@ -1040,11 +1040,13 @@ namespace Stardrop.Views
 
         private async void ModUpdateCheck_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
+            Console.WriteLine(9);
             await HandleModUpdateCheck();
         }
 
         private async void ModUpdateCheck_Click(object? sender, EventArgs e)
         {
+            Console.WriteLine(8);
             await HandleModUpdateCheck();
         }
 
