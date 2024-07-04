@@ -1208,6 +1208,11 @@ namespace Stardrop.Views
             }
         }
 
+        private async void ExportConfig_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            _viewModel.ZipMods(GetCurrentProfile());
+        }
+
         private async Task HandleModAdd()
         {
             if (Pathing.defaultModPath is null || !Directory.Exists(Pathing.defaultModPath))

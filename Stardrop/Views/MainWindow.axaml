@@ -654,7 +654,7 @@
                     </Button.Flyout>
                 </Button>
                 <Grid ColumnDefinitions="Auto, Auto, Auto, Auto" HorizontalAlignment="Right">
-					<Button Name="exportButton" Content="Export Configs" Grid.Column="0" Classes="hyperlink" HorizontalAlignment="Right" Padding="8,0,8,0" VerticalAlignment="Center"/>
+					<Button Name="exportButton" Content="Export Configs" Grid.Column="0" Classes="hyperlink" Click="ExportConfig_Click" HorizontalAlignment="Right" Padding="8,0,8,0" VerticalAlignment="Center"/>
                     <Button Name="nexusModsButton" Content="{Binding NexusStatus}" Grid.Column="1" Classes="hyperlink" HorizontalAlignment="Center" Padding="8,0,8,0" VerticalAlignment="Center"/>
                     <TextBlock Text="{Binding NexusLimits}" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource ThemeForegroundBrush}" IsVisible="{Binding ShowEndorsements}"/>
                     <TextBlock Text=" | " Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{DynamicResource ThemeForegroundBrush}"/>

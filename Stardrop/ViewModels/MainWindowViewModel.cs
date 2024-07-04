@@ -2,6 +2,7 @@ using Avalonia.Collections;
 using Avalonia.Controls;
 using Json.More;
 using ReactiveUI;
+using SharpCompress.Common.Zip;
 using Stardrop.Models;
 using Stardrop.Models.Data;
 using Stardrop.Models.Data.Enums;
@@ -15,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.Json;
@@ -480,6 +482,39 @@ namespace Stardrop.ViewModels
                 else
                 {
                     mod.Config = new Config() { UniqueId = mod.UniqueId, FilePath = fileInfo.FullName, LastWriteTimeUtc = fileInfo.LastWriteTimeUtc, Data = File.ReadAllText(fileInfo.FullName) };
+                }
+            }
+        }
+
+        public void ZipMods(Profile profile)
+        {
+            Console.WriteLine(Pathing.GetCacheFolderPath());
+            var tempdir = Directory.CreateDirectory(Pathing.GetCacheFolderPath() + "\\" + "tempdir");
+
+            string target = Pathing.GetCacheFolderPath() + "\\" + "zipped.zip";
+            using (FileStream zipToOpen = new FileStream(target, FileMode.OpenOrCreate))
+            {
+                using (ZipArchive archive = new ZipArchive(zipToOpen, ZipArchiveMode.Update))
+                {
+                    foreach (Mod mod in Mods)
+                    {
+                        if (mod.IsEnabled)
+                        {
+                            ZipArchiveEntry readmeEntry;
+                            DirectoryInfo d = new DirectoryInfo(Pathing.defaultModPath + "\\" + mod.Path);
+                            FileInfo[] Files = d.GetFiles("*", SearchOption.AllDirectories) ;
+                            foreach (FileInfo file in Files)
+                            {
+                                string zipentry = file.FullName.Substring(file.FullName.IndexOf(mod.Path));
+                                Console.WriteLine("zip entry " + zipentry);
+                                readmeEntry = archive.CreateEntryFromFile(file.FullName, zipentry);
+                            }
+                        }
+                    }
+
+                    ZipArchiveEntry profileZip;
+                    profileZip = archive.CreateEntryFromFile(Pathing.GetProfilesFolderPath()+"\\"+profile.Name + ".json", profile.Name + ".json");
+
                 }
             }
         }
